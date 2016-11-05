@@ -89,7 +89,7 @@ As you can see, configuration items for a field include:
 `rules` is also a javascript object, each of its property present a validation rule.  
 The value of the properties is an object width two properties: `test` and `warn`.  
 `test` can be a regular expression to match or a function returning boolean value.  
-`warn` is a string to be showed when this rule is not satisfied.  
+`warn` is a string to be shown when this rule is not satisfied.  
 Some rules are provided by `formFactory`, you can use them directly:`formFactory.RULES.*`.  
 
 |Rule|Description|
@@ -127,7 +127,7 @@ If you want to use the stylesheet `formFactory` provides, remember to use the `f
 - a class name `ff-input` to the input element
 - a class name `ff-hint` to the element displaying the messages  
 
-just like template showed above.
+just like template shown above.
 
 #### Class interface
 
@@ -135,7 +135,7 @@ The following class names are used for parts of each field, users can use them i
 
 |Class name|Description|
 |---|---|
-|ff-hint|class name attached to the element displaying the hint and the input element when hint is showed|
+|ff-hint|class name attached to the element displaying the hint and the input element when hint is shown|
 |ff-success|class name attached to the element displaying the success message and the input element when the field is valid|
 |ff-failed|class name attached to the element displaying the error message and the input element when the field is invalid|
 |ff-btn|class name attached to the submit button|
