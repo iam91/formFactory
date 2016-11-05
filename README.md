@@ -131,7 +131,7 @@ just like template shown above.
 
 #### Class interface
 
-The following class names are used for parts of each field, users can use them in a .css file to design customized stylesheet:  
+The following class names are used for parts of each field, users can use them in a stylesheet to design customized stylesheet:  
 
 |Class name|Description|
 |---|---|
