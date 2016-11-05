@@ -1,0 +1,60 @@
+$border-style: 1px solid gray;
+
+$hint-color: #004687;
+$hint-font-color: #202020;
+$failed-color: #d81b18;
+$successful-color: #004687;
+
+form[class^='ff']{
+	font-family: 'Microsoft YaHei';
+	color: #5a5a5a;
+	input[class^='ff-']{
+		outline: none;
+		border: $border-style;
+		border-radius: 5px;
+		display: block;
+		height: 2em;
+		padding: 0 1em;
+		color: #202020;
+		transition: box-shadow 0.2s;
+	}
+
+	input[type='submit'], input[type='button']{
+		&:hover{
+			border-color: $hint-color;
+			color: $hint-color;
+		}
+	}
+
+	input{
+		&.ff-hint{
+			border-color: $hint-color;
+			&:focus{
+				box-shadow: 0 0 3px 1px $hint-color;
+				border-color: $hint-color;
+			}
+		}
+		&.ff-failed{
+			border-color: $failed-color;
+		}
+		&.ff-success{
+			border-color: $successful-color;
+		}
+	}
+
+	span{
+		font-size: 0.8em;
+		padding: 0 0.5em;
+	}
+
+	span.ff-hint{
+		color: $hint-font-color;
+	}
+	span.ff-failed{
+		color: $failed-color;
+	}
+	span.ff-success
+	{
+		color: $successful-color;
+	}
+}
