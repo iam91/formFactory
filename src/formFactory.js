@@ -13,7 +13,7 @@
 	var Default = {
 
 		template: "<label class='ff-label'>{label}</label>" + 
-				  "<input class='ff-input ff-hint' type='{type}' name='{name}'>" + 
+				  "<input class='ff-input' type='{type}' name='{name}'>" + 
 				  "<span class='ff-hint'>{hint}</span>",
 
 		getInfo: function(input){
@@ -164,7 +164,7 @@
 	 * @param {Template} template HTML template for form fields.
 	 */
 	FormFactory.prototype.config = function(schema, template){
-		if(this._base){
+		if(this._base && !this._isInit){
 
 			if(!schema){
 				console.warn('FormFactory: No schema provided.');
@@ -413,6 +413,10 @@
 		infoPart.classList.remove(ClassName.HINT);
 		infoPart.classList.remove(ClassName.FAILED);
 		infoPart.classList.remove(ClassName.SUCCESS);
+
+		target.classList.remove(ClassName.HINT);
+		target.classList.remove(ClassName.FAILED);
+		target.classList.remove(ClassName.SUCCESS);
 
 		infoPart.innerHTML = info;
 		infoPart.classList.add(classname);

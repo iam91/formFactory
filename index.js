@@ -41,14 +41,13 @@ var schema = {
 	}
 };
 var template = {
-	template: "<h1 class='ff-label'>{label}</h1>" + 
-				  "<input class='ff-input ff-hint' type='{type}' name='{name}'>" + 
-				  "<span class='ff-hint'>{hint}</span>",
-
+	template: "<h1>{label}</h1>" + 
+			  "<input type='{type}' name='{name}'>" + 
+			  "<span >{hint}</span>",
 	getInfo: function(input){
 		return input.nextElementSibling;
 	}
-				};
+};
 
 var ff = formFactory(document.querySelector('.temp'))
 			.config(schema, template)
