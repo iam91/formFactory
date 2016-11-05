@@ -90,7 +90,7 @@ As you can see, configuration items for a field include:
 The value of the properties is an object width two properties: `test` and `warn`.  
 `test` can be a regular expression to match or a function returning boolean value.  
 `warn` is a string to be showed when this rule is not satisfied.  
-Some rules are provided by `formFactory`, you can use them directly:formFactory.RULES.*  
+Some rules are provided by `formFactory`, you can use them directly:`formFactory.RULES.*`.  
 
 |Rule|Description|
 |---|---|
@@ -107,7 +107,7 @@ Some rules are provided by `formFactory`, you can use them directly:formFactory.
 #### template
 `template` is a javascript object with two properties:`template` and `getInfo`.  
 `template` is a template string.  It provides the html template for a field.
-`getInfo` is a function taking an HTMLInputElement object as an input, and returning an HTMLElement object showing the message for this field.This function is provided for formFactory to find the element to display messages, since user provides the template.
+`getInfo` is a function taking an HTMLInputElement object as an input, and returning an HTMLElement object showing the message for this field. This function is provided for formFactory to find the element to display messages, since user provides the template.  
 For example
 ```javascript
 var template = {
@@ -125,12 +125,14 @@ var template = {
 If you want to use the stylesheet `formFactory` provides, remember to use the `formFactory.min.css` in the /dist directory and attach: 
 - a class name `ff-label` to the element displaying the `label` in `schema` 
 - a class name `ff-input` to the input element
-- a class name `ff-hint` to the element displaying the messages.
+- a class name `ff-hint` to the element displaying the messages  
+
 just like template showed above.
 
 #### Class interface
 
-The following class names are used for parts of each field, users can use them in a .css file to design customized stylesheet:
+The following class names are used for parts of each field, users can use them in a .css file to design customized stylesheet:  
+
 |Class name|Description|
 |---|---|
 |ff-hint|class name attached to the element displaying the hint and the input element when hint is showed|
@@ -139,8 +141,8 @@ The following class names are used for parts of each field, users can use them i
 |ff-btn|class name attached to the submit button|
 
 ### Dependency
-In some circumstances, a field's value may depend on other fields' value, users can configure `formFactory` to validate a field based on these dependency relationships. An array of dependency object can be pass to `formFactory`. A dependency object has at least two properties: `relier` and `depended`, where `depended` is depended by `relier`. Both of them are strings taking the values of properties of the `schema` object.  
-For example, 
+In some circumstances, a field's value may depend on other fields' value, users can configure `formFactory` to validate a field based on these dependency relationships. An array of dependency object can be pass to `formFactory`. A dependency object has at least two properties: `relier` and `depended`, where `depended` is depended by `relier`. Both of them are strings and are property names of the `schema` object.  
+For example,  
 ```javascript
 {
     relier: 'password',
@@ -174,8 +176,11 @@ ff.dependency([
 ```
 ### Callback
 A submit button will be placed after all of the input fields. When the button is clicked, all fields will be validated and one of two callback functions will be invoked: `onfail` and `onsuccess` depending on the validation results. If users don't provide these two functions, `formFactory` will alse invoke its default ones.  
+
 Both of above mentioned callback functions will receive two parameters, the first one is the event object when the button's click event is triggered, the second one is the HTMLFormElement passed in when users instantiate the `formFactory` object.  
+
 If you want to submit the form when submit button clicked, you have to invoke the HTMLFormElement's .submit() method in the callback function to do that, or the form won't be submitted. Or you can use Ajax to submit the form, that's the reason `formFactory` passes the HTMLFormElement into the callback function: to make it easy for users to provide customized actions.  
+
 Notice that the default `onsuccess` callback function provided will submit the form since it's implemented as follows:
 ```javascript
 function(event, form){
@@ -185,3 +190,22 @@ function(event, form){
 	}
 }
 ```
+
+### Chainable
+APIs above are chainable:
+```javascript
+var f1 = formFactory(document.querySelector('.form-1'))
+			.config(schema, template)
+			.dependency([
+				{
+					relier: 'password',
+					depended: 'name'
+				}
+			])
+			.callback(
+				function(){alert('outer onfail provided');}, 
+				function(){alert('outer onsuccess provided');}
+			);
+```
+
+`Notice` There is a demo in `index.js` and `index.html` showing how to use `formFactory`.

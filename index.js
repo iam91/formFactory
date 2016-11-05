@@ -22,8 +22,7 @@ var schema = {
 			usable: {
 				test: /^[a-z,A-Z,\d]+$/, 
 				warn: '密码只能为数字或字母'
-			},
-			temp: formFactory.RULES.ip
+			}
 		}
 	},
 	email: {
@@ -49,16 +48,17 @@ var template = {
 	}
 };
 
-var ff = formFactory(document.querySelector('.temp'))
+var f1 = formFactory(document.querySelector('.form-1'))
 			.config(schema, template)
 			.dependency([
 				{
 					relier: 'password',
 					depended: 'name'
-				}]).callback(
-					function(){alert('outer onfail provided');}, 
-					function(){alert('outer onsuccess provided');});
+				}
+			])
+			.callback(
+				function(){alert('outer onfail provided');}, 
+				function(){alert('outer onsuccess provided');}
+			);
 
-var t = formFactory(document.querySelector('.tt')).config(schema);
-
-console.log(document.querySelector('.tt'));
+var f2 = formFactory(document.querySelector('.form-2')).config(schema);
