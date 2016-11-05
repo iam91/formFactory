@@ -131,6 +131,12 @@
 	 * @param {HTMLFormElement} base The form element to render the inputs. 
 	 */
 	function FormFactory(base){
+		if(!base){
+			console.warn('FormFactory: An HTMLElement should be provided.');
+			this._base = null;
+			return this;
+		}
+
 		base.innerHTML = '';
 		this._base = base; 
 
@@ -158,33 +164,36 @@
 	 * @param {Template} template HTML template for form fields.
 	 */
 	FormFactory.prototype.config = function(schema, template){
-		if(!schema){
-			console.warn('FormFactory: No schema provided.');
-			return this;
+		if(this._base){
+
+			if(!schema){
+				console.warn('FormFactory: No schema provided.');
+				return this;
+			}
+
+			if(template && template.template && !template.getInfo){
+				console.warn('FormFactory: ' + 
+					'A function returning the html element ' + 
+					'showing the information should be provided together with your html template!');
+				return this;
+			}
+			
+			this._schema = schema;
+			this._html = (template && template.template) || Default.template;
+			this._findInfo = (template && template.getInfo) || Default.getInfo;
+			this._onfail = Default.onfail;
+			this._onsuccess = Default.onsuccess;
+			this._dependency = {};
+
+			this._render();
+
+			//Register event handlers.
+			addHandler(this._base, 'focusin', this._handlerWrapper(this._focusHandler));
+			addHandler(this._base, 'focusout', this._handlerWrapper(this._focusHandler));
+			addHandler(this._base, 'click', this._handlerWrapper(this._clickHandler));
+
+			this._isInit = true;
 		}
-
-		if(template && template.template && !template.getInfo){
-			console.warn('FormFactory: ' + 
-				'A function returning the html element ' + 
-				'showing the information should be provided together with your html template!');
-			return this;
-		}
-		
-		this._schema = schema;
-		this._html = (template && template.template) || Default.template;
-		this._findInfo = (template && template.getInfo) || Default.getInfo;
-		this._onfail = Default.onfail;
-		this._onsuccess = Default.onsuccess;
-		this._dependency = {};
-
-		this._render();
-
-		//Register event handlers.
-		addHandler(this._base, 'focusin', this._handlerWrapper(this._focusHandler));
-		addHandler(this._base, 'focusout', this._handlerWrapper(this._focusHandler));
-		addHandler(this._base, 'click', this._handlerWrapper(this._clickHandler));
-
-		this._isInit = true;
 
 		return this;
 	};
@@ -254,7 +263,7 @@
 		for(var name in schema){
 			var input = schema[name];
 			var label = input.label || '';
-			var type = input.show ? 'password' : 'text';
+			var type = input.show ? 'text' : 'password';
 			var hint = input.hint || '';
 
 			var newField = $$('div');

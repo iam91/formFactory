@@ -1,7 +1,7 @@
 var schema = {
 	name: {
 		label: 'name',
-		show: false,
+		show: true,
 		hint: '必填，长度为4-16个字符',
 		valid: '验证成功',
 		rules: {
@@ -11,7 +11,7 @@ var schema = {
 	},
 	password: {
 		label: 'password',
-		show: true,
+		show: false,
 		hint: '请输入密码',
 		valid: '验证成功',
 		rules: {
@@ -22,12 +22,13 @@ var schema = {
 			usable: {
 				test: /^[a-z,A-Z,\d]+$/, 
 				warn: '密码只能为数字或字母'
-			}
+			},
+			temp: formFactory.RULES.ip
 		}
 	},
 	email: {
 		label: 'email',
-		show: false,
+		show: true,
 		hint: '请输入邮箱',
 		valid: '验证成功',
 		rules: {
@@ -39,31 +40,26 @@ var schema = {
 		}
 	}
 };
-var t = schema.name.rules;
-console.log(t);
 var template = {
 	template: "<h1 class='ff-label'>{label}</h1>" + 
 				  "<input class='ff-input ff-hint' type='{type}' name='{name}'>" + 
-				  "<span class='ff-hint tt'>{hint}</span>",
+				  "<span class='ff-hint'>{hint}</span>",
 
 	getInfo: function(input){
 		return input.nextElementSibling;
 	}
 				};
-var ff = formFactory(document.querySelector('.ff'))
+
+var ff = formFactory(document.querySelector('.temp'))
 			.config(schema, template)
 			.dependency([
 				{
-					relier: 'email',
-					depended: 'password'
-				}, 
-				{
 					relier: 'password',
 					depended: 'name'
-				}]).callback(function(){alert('outer onfail provided');});
+				}]).callback(
+					function(){alert('outer onfail provided');}, 
+					function(){alert('outer onsuccess provided');});
 
-var dd;
-for(var i in dd){
-	console.log(d);
-}
-console.log(dd);
+var t = formFactory(document.querySelector('.tt')).config(schema);
+
+console.log(document.querySelector('.tt'));

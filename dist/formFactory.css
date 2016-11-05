@@ -1,0 +1,33 @@
+form {
+  font-family: 'Microsoft YaHei';
+  color: #5a5a5a; }
+  form input[class^='ff-'] {
+    outline: none;
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: block;
+    height: 2em;
+    padding: 0 1em;
+    color: #202020;
+    transition: box-shadow 0.2s; }
+  form input[type='submit']:hover, form input[type='button']:hover {
+    border-color: #004687;
+    color: #004687; }
+  form input.ff-hint {
+    border-color: #004687; }
+    form input.ff-hint:focus {
+      box-shadow: 0 0 3px 1px #004687;
+      border-color: #004687; }
+  form input.ff-failed {
+    border-color: #d81b18; }
+  form input.ff-success {
+    border-color: #004687; }
+  form span {
+    font-size: 0.8em;
+    padding: 0 0.5em; }
+  form span.ff-hint {
+    color: #202020; }
+  form span.ff-failed {
+    color: #d81b18; }
+  form span.ff-success {
+    color: #004687; }
